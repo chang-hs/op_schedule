@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title%}{{ title }}{% endblock %}
+{% block content %}
+    <div style="width: 1000px" class="mx-auto p-3">
+        <h2>List of Operations to be Scheduled</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Patient ID</th>
+                    <th>Name</th>
+                    <th>診断</th>
+                    <th>手術時間</th>
+                    <th>緊急度</th>
+                    <th>手術日</th>
+                    <th>術前検査日</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for op in ops %}
+                <tr>
+                    <td>{{ op.id }}</td>
+                    <td>{{ op.patient_id }}</td>
+                    <td>{{ op.name }}</td>
+                    <td>{{ op.diagnosis }}</td>
+                    <td>{{ op.op_duration }}</td>
+                    <td>{{ op.urgency }}</td>
+                    <td>{{ op.op_date }}</td>
+                    <td>{{ op.preop_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
