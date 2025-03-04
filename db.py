@@ -1,8 +1,16 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from flask import current_app
+from sqlalchemy.orm import sessionmaker, scoped_session, DeclarativeBase
+
+class Base(DeclarativeBase):
+    pass
+
+engine = create_engine('sqlite:///op_schedule.db')
+db_session = scoped_session(sessionmaker(autocommit=False,
+                                         autoflush=False,
+                                         bind=engine))
+
+Base.query = db_session.query_property()
 
 def init_db(app):
-    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-    Session = sessionmaker(bind=engine)
-    return Session
+    import models
+    Base.metadata.create_all(bind=engine)
