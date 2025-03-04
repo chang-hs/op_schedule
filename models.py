@@ -1,14 +1,11 @@
 from typing import List
 from sqlalchemy import ForeignKey
-from sqlalchemy import String, Date, Time, Integer
+from sqlalchemy import String, Date, Time, Integer, Boolean
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
-from sqlalchemy import create_engine
-
-class Base(DeclarativeBase):
-    pass
+from db import Base
 
 db = SQLAlchemy(model_class=Base)
 
@@ -22,21 +19,12 @@ class Op(Base):
     urgency: Mapped[Integer] = mapped_column(Integer)
     op_date: Mapped[Date] = mapped_column(Date, nullable=True)
     preop_date: Mapped[Date] = mapped_column(Date, nullable=True)
+    date_set: Mapped[Boolean] = mapped_column(Boolean, default=False)
+    patient_notified: Mapped[Boolean] = mapped_column(Boolean, default=False)
 
     def __repr__(self) -> str:
         return f"Op {self.patient_id} {self.name} {self.op_date} {self.preop_date}"
     
-    def __init__(self, patient_id, name):
-        self.patient_id = patient_id
-        self.name = name
-        self.diagnosis = ''
-        self.op_duration = ''
-        self.urgency = 0
-        self.op_date = None
-        self.preop_date = None
+
         
         
-    
-if __name__ == '__main__':
-    engine = create_engine("sqlite://", echo=True)
-    print(engine)
