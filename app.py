@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///op_schedule.db'
 app.config['SECRET_KEY'] = 'hansoo77jp'
 
 bootstrap = Bootstrap5(app)
-db.init_app(app)
+
 
 @app.route('/')
 def index():
@@ -31,7 +31,7 @@ def register():
 
 @app.route('/list')
 def list_ops():
-    ops = db.session.execute(db.select(Op)).scalars()
+    ops = Op.query.all()
     return render_template('list_op.html', title="List of Ops", ops=ops)
 
 if __name__ == '__main__':
