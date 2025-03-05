@@ -22,8 +22,8 @@ def register():
     form = OpForm()
     if form.validate_on_submit():
         this_id = form.patient_id
-        new_op = Op(patient_id=form.patient_id, name=form.name,
-                    op_duration=form.op_duration, urgency=form.urgency)
+        new_op = Op(patient_id=form.patient_id.data, name=form.name.data, diagnosis=form.diagnosis.data,
+                    op_duration=form.op_duration.data, urgency=form.urgency.data)
         db_session.add(new_op)
         db_session.commit()
         return redirect(url_for('register'))
