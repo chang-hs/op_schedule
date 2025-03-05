@@ -2,7 +2,7 @@ from flask import Flask, redirect, url_for
 from flask_bootstrap import Bootstrap5
 from flask import render_template
 from models import Op
-from forms import OpForm
+from forms import OpForm, EditOpForm
 from db import db_session
 
 
@@ -21,7 +21,6 @@ def index():
 def register():
     form = OpForm()
     if form.validate_on_submit():
-        this_id = form.patient_id
         new_op = Op(patient_id=form.patient_id.data, name=form.name.data, diagnosis=form.diagnosis.data,
                     op_duration=form.op_duration.data, urgency=form.urgency.data)
         db_session.add(new_op)
@@ -33,6 +32,25 @@ def register():
 def list_ops():
     ops = Op.query.all()
     return render_template('list_op.html', title="List of Ops", ops=ops)
+
+@app.route('/edit/<int:op_id>', methods=['GET', 'POST'])
+def edit_op(op_id):
+    op = db_session.query(Op).filter_by(id=op_id).first()
+    form = EditOpForm(obj=op)
+    if form.validate_on_submit():
+        op.patient_id = form.patient_id.data
+        op.name = form.name.data
+        op.diagnosis = form.diagnosis.data
+        op.urgency = form.urgency.data
+        op.op_date = form.op_date.data
+        op.preop_date = form.preop_date.data
+        op.date_set = form.date_set.data
+        op.patient_notified = form.patient_notified.data
+        op.orders_committed = form.orders_committed.data
+        
+        db_session.commit()
+    return render_template('edit_op.html', form=form)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
