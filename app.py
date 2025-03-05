@@ -2,8 +2,8 @@ from flask import Flask, redirect, url_for
 from flask_bootstrap import Bootstrap5
 from flask import render_template
 from models import Op
-from models import db
 from forms import OpForm
+from db import db_session
 
 
 app = Flask(__name__)
@@ -24,8 +24,8 @@ def register():
         this_id = form.patient_id
         new_op = Op(patient_id=form.patient_id, name=form.name,
                     op_duration=form.op_duration, urgency=form.urgency)
-        db.session.add(new_op)
-        db.session.commit()
+        db_session.add(new_op)
+        db_session.commit()
         return redirect(url_for('register'))
     return render_template('register.html', form=form)
 

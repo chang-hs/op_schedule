@@ -7,7 +7,7 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from db import Base
 
-db = SQLAlchemy(model_class=Base)
+# db = SQLAlchemy(model_class=Base)
 
 class Op(Base):
     __tablename__ = "op"
