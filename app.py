@@ -42,6 +42,7 @@ def edit_op(op_id):
         op.name = form.name.data
         op.diagnosis = form.diagnosis.data
         op.urgency = form.urgency.data
+        op.memo = form.memo.data
         op.op_date = form.op_date.data
         op.preop_date = form.preop_date.data
         op.date_set = form.date_set.data

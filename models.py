@@ -1,6 +1,6 @@
 from typing import List
-from sqlalchemy import ForeignKey
-from sqlalchemy import String, Date, Time, Integer, Boolean
+from sqlalchemy import func
+from sqlalchemy import String, Date, Time, Integer, Boolean, DateTime
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
@@ -13,16 +13,18 @@ class Op(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     patient_id: Mapped[String] = mapped_column(String[8])
     name: Mapped[String] = mapped_column(String)
-    phone: Mapped[String] = mapped_column(String)
-    email: Mapped[String] = mapped_column(String)
+    phone: Mapped[String] = mapped_column(String, nullable=True)
+    email: Mapped[String] = mapped_column(String, nullable=True)
     diagnosis: Mapped[String] = mapped_column(String)
     op_duration: Mapped[String] = mapped_column(String)
     urgency: Mapped[Integer] = mapped_column(Integer)
+    memo: Mapped[String] = mapped_column(String, nullable=True)
     op_date: Mapped[Date] = mapped_column(Date, nullable=True)
     preop_date: Mapped[Date] = mapped_column(Date, nullable=True)
     date_set: Mapped[Boolean] = mapped_column(Boolean, default=False)
     patient_notified: Mapped[Boolean] = mapped_column(Boolean, default=False)
     orders_committed: Mapped[Boolean] = mapped_column(Boolean, default=False)
+    created_at: Mapped[DateTime] = mapped_column(DateTime, default=func.now())
 
     def __repr__(self) -> str:
         return f"Op {self.patient_id} {self.name} {self.op_date} {self.preop_date}"
