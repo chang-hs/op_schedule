@@ -13,6 +13,8 @@ class Op(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     patient_id: Mapped[String] = mapped_column(String[8])
     name: Mapped[String] = mapped_column(String)
+    phone: Mapped[String] = mapped_column(String)
+    email: Mapped[String] = mapped_column(String)
     diagnosis: Mapped[String] = mapped_column(String)
     op_duration: Mapped[String] = mapped_column(String)
     urgency: Mapped[Integer] = mapped_column(Integer)

@@ -8,6 +8,8 @@ class OpForm(FlaskForm):
     diagnosis = StringField('diagnosis', validators=[InputRequired()])
     op_duration = StringField('op_duration')
     urgency = IntegerField('urgency')
+    phone = StringField('phone')
+    email = StringField('email')
     submit = SubmitField('Submit')
 
 class EditOpForm(FlaskForm):
