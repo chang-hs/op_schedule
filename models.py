@@ -7,7 +7,6 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from db import Base
 
-# db = SQLAlchemy(model_class=Base)
 
 class Op(Base):
     __tablename__ = "op"
@@ -21,6 +20,7 @@ class Op(Base):
     preop_date: Mapped[Date] = mapped_column(Date, nullable=True)
     date_set: Mapped[Boolean] = mapped_column(Boolean, default=False)
     patient_notified: Mapped[Boolean] = mapped_column(Boolean, default=False)
+    orders_committed: Mapped[Boolean] = mapped_column(Boolean, default=False)
 
     def __repr__(self) -> str:
         return f"Op {self.patient_id} {self.name} {self.op_date} {self.preop_date}"

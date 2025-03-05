@@ -14,6 +14,8 @@
                     <th>緊急度</th>
                     <th>手術日</th>
                     <th>術前検査日</th>
+                    <th>患者連絡済</th>
+                    <th>Order Committed</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +29,8 @@
                     <td>{{ op.urgency }}</td>
                     <td>{{ op.op_date }}</td>
                     <td>{{ op.preop_date }}</td>
+                    <td>{{ op.patient_notified }}</td>
+                    <td>{{ op.orders_committed }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
