@@ -49,6 +49,7 @@ def edit_op(op_id):
         op.orders_committed = form.orders_committed.data
         
         db_session.commit()
+        return redirect(url_for('list_ops'))
     return render_template('edit_op.html', form=form)
 
 
