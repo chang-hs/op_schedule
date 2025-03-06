@@ -21,8 +21,9 @@ def index():
 def register():
     form = OpForm()
     if form.validate_on_submit():
-        new_op = Op(patient_id=form.patient_id.data, name=form.name.data, diagnosis=form.diagnosis.data,
-                    op_duration=form.op_duration.data, urgency=form.urgency.data)
+        new_op = Op(patient_id=form.patient_id.data, name=form.name.data, age=form.age.data, diagnosis=form.diagnosis.data,
+                    memo=form.memo.data, op_duration=form.op_duration.data, urgency=form.urgency.data,
+                    phone=form.phone.data, email=form.email.data)
         db_session.add(new_op)
         db_session.commit()
         return redirect(url_for('register'))
