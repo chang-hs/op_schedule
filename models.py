@@ -13,6 +13,7 @@ class Op(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     patient_id: Mapped[String] = mapped_column(String[8])
     name: Mapped[String] = mapped_column(String)
+    age: Mapped[Integer] = mapped_column(Integer, nullable=True)
     phone: Mapped[String] = mapped_column(String, nullable=True)
     email: Mapped[String] = mapped_column(String, nullable=True)
     diagnosis: Mapped[String] = mapped_column(String)
