@@ -1,3 +1,4 @@
+import locale
 from flask import Flask, redirect, url_for
 from flask_bootstrap import Bootstrap5
 from flask import render_template
@@ -12,6 +13,8 @@ app.config['SECRET_KEY'] = 'hansoo77jp'
 
 bootstrap = Bootstrap5(app)
 
+# Set locale (change "fr_FR" to your desired locale, e.g., "de_DE" for German)
+locale.setlocale(locale.LC_TIME, "ja_JP.UTF-8")
 
 @app.route('/')
 def index():

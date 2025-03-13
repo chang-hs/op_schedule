@@ -34,8 +34,16 @@
                     <td>{{ op.op_duration }}</td>
                     <td>{{ op.urgency }}</td>
                     <td>{{ op.memo }}</td>
-                    <td>{{ op.preop_date }}</td>
-                    <td>{{ op.op_date }}</td>
+                    {% if op.preop_date %}
+                        <td>{{ op.preop_date.strftime('%A, %Y-%m-%d') }}</td>
+                    {% else %}
+                        <td>{{ op.preop_date }}</td>
+                    {% endif %}
+                    {% if op.op_date %}
+                        <td>{{ op.op_date.strftime('%A, %Y-%m-%d') }}</td>
+                    {% else %}
+                        <td>{{ op.op_date }}</td>
+                    {% endif %}
                     <td>
                         {% if op.date_set %}
                             <button class="btn btn-success">済</button>
