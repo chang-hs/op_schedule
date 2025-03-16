@@ -8,15 +8,7 @@
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
   </head>
   <body>
-    <div class="container">
-      <nav class=""navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <div class="d-flex">
-            <a href="{{ url_for('list_ops') }}" class="btn btn-primary me-2">List</a>
-            <a href="{{ url_for('register') }}" class="btn btn-secondary me-2" >Register</a>
-          </div>
-        </div>
-      </nav>
+    <div class="container-xxl">
       <h1>{% block mytitle %}{% endblock %}</h1>
       <p>{% block content %}{% endblock %}</p>
       <script src="{{ url_for('static', filename='css/bootstrap.min.js') }}"></script>

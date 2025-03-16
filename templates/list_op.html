@@ -1,7 +1,25 @@
 {% extends "base.html" %}
 {% block title%}{{ title }}{% endblock %}
+{% set weekday_list = ['月', '火', '水', '木', '金', '土', '日'] %}
 {% block content %}
-    <div style="width: 1400px" class="mx-auto p-3">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/static/icon.png">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-current="page" href="{{ url_for('list_ops') }}">List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ url_for('register') }}">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
         <h2>List of Operations to be Scheduled</h2>
         <table class="table">
             <thead>
@@ -35,12 +53,14 @@
                     <td>{{ op.urgency }}</td>
                     <td>{{ op.memo }}</td>
                     {% if op.preop_date %}
-                        <td>{{ op.preop_date.strftime('%A, %Y-%m-%d') }}</td>
+                        {% set date_string = weekday_list[op.preop_date.weekday()] + op.preop_date.strftime('%Y-%m-%d') %}
+                        <td>{{ date_string }}</td>
                     {% else %}
                         <td>{{ op.preop_date }}</td>
                     {% endif %}
                     {% if op.op_date %}
-                        <td>{{ op.op_date.strftime('%A, %Y-%m-%d') }}</td>
+                        {% set date_string = weekday_list[op.op_date.weekday()] + op.op_date.strftime('%Y-%m-%d') %}
+                        <td>{{ date_string }}</td>
                     {% else %}
                         <td>{{ op.op_date }}</td>
                     {% endif %}
