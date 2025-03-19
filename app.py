@@ -3,7 +3,7 @@ from flask import Flask, redirect, url_for
 from flask_bootstrap import Bootstrap5
 from flask import render_template
 from models import Op, User
-from forms import OpForm, EditOpForm
+from forms import OpForm, EditOpForm, LoginForm
 from db import db_session
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -26,7 +26,12 @@ login_manager.login_view = 'login'
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-@app.route('/login', methods=['GET1', 'POST'])
+def set_user_password(username, password):
+    new_user = User(username=username, password=generate_password_hash(password))
+    db_session.add(new_user)
+    db_session.commit()
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -58,6 +63,7 @@ def register():
 
 
 @app.route('/list')
+@login_required
 def list_ops():
     ops = Op.query.all()
     return render_template('list_op.html', title="List of Ops", ops=ops)
