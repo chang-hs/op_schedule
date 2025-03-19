@@ -1,5 +1,5 @@
 import locale
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
 from flask import render_template
 from models import Op, User
@@ -41,6 +41,7 @@ def login():
             return redirect(url_for('list_ops'))
         else:
             flash('Invalid username or password', 'danger')
+            return redirect(url_for('login'))
     return render_template('login.html', form=form)
 
 
