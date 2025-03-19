@@ -6,6 +6,7 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from db import Base
+from flask_login import UserMixin
 
 
 class Op(Base):
@@ -29,6 +30,11 @@ class Op(Base):
 
     def __repr__(self) -> str:
         return f"Op {self.patient_id} {self.name} {self.op_date} {self.preop_date}"
+    
+class User(Base, UserMixin):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(String)
+    password: Mapped[str] = mapped_column(String)
     
 
         

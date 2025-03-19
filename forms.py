@@ -29,3 +29,8 @@ class EditOpForm(FlaskForm):
     patient_notified = BooleanField('patient_notified')
     orders_committed = BooleanField('orders_committed')
     submit = SubmitField('Submit')
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[InputRequired(), Length(min=4, max=20)])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=6, max=20)])
+    submit = SubmitField('Login')

@@ -2,9 +2,11 @@ import locale
 from flask import Flask, redirect, url_for
 from flask_bootstrap import Bootstrap5
 from flask import render_template
-from models import Op
+from models import Op, User
 from forms import OpForm, EditOpForm
 from db import db_session
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 app = Flask(__name__)
@@ -16,11 +18,33 @@ bootstrap = Bootstrap5(app)
 # Set locale (change "fr_FR" to your desired locale, e.g., "de_DE" for German)
 locale.setlocale(locale.LC_TIME, "ja_JP.UTF-8")
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+@app.route('/login', methods=['GET1', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(user_name=form.username.data).first()
+        if user and check_password_hash(user.password, form.password.data):
+            login_user(user)
+            return redirect(url_for('/list'))
+        else:
+            flash('Invalid username or password', 'danger')
+    return render_template('login.html', form=form)
+
+
 @app.route('/')
 def index():
     return 'Hello, world!'
 
 @app.route('/register', methods=['GET', 'POST'])
+@login_required
 def register():
     form = OpForm()
     if form.validate_on_submit():
@@ -32,12 +56,15 @@ def register():
         return redirect(url_for('register'))
     return render_template('register.html', form=form)
 
-@app.route('/list')
+
+@app.route('/')
+@login_required
 def list_ops():
     ops = Op.query.all()
     return render_template('list_op.html', title="List of Ops", ops=ops)
 
 @app.route('/edit/<int:op_id>', methods=['GET', 'POST'])
+@login_required
 def edit_op(op_id):
     op = db_session.query(Op).filter_by(id=op_id).first()
     form = EditOpForm(obj=op)
