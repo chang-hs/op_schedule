@@ -32,9 +32,13 @@ class Op(Base):
         return f"Op {self.patient_id} {self.name} {self.op_date} {self.preop_date}"
     
 class User(Base, UserMixin):
+    __tablename__ = "user"
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(String)
     password: Mapped[str] = mapped_column(String)
+
+    def __repr__(self) -> str:
+        return f"User {self.username}"
     
 
         

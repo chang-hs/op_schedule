@@ -57,8 +57,7 @@ def register():
     return render_template('register.html', form=form)
 
 
-@app.route('/')
-@login_required
+@app.route('/list')
 def list_ops():
     ops = Op.query.all()
     return render_template('list_op.html', title="List of Ops", ops=ops)
