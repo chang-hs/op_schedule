@@ -77,6 +77,7 @@ def edit_op(op_id):
     if form.validate_on_submit():
         op.patient_id = form.patient_id.data
         op.name = form.name.data
+        op.phone = form.phone.data
         op.diagnosis = form.diagnosis.data
         op.urgency = form.urgency.data
         op.memo = form.memo.data
@@ -97,4 +98,4 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5500)
+    app.run(debug=True, port=8001)

@@ -19,6 +19,7 @@ class EditOpForm(FlaskForm):
     patient_id = StringField('patient_id', validators=[InputRequired(), Length(min=8, max=8)])
     name = StringField('name', validators=[InputRequired()])
     age = IntegerField('age', validators=[Optional()])
+    phone = StringField('phone', validators=[Optional()])
     diagnosis = StringField('diagnosis', validators=[InputRequired()])
     op_duration = StringField('op_duration')
     urgency = IntegerField('urgency')
