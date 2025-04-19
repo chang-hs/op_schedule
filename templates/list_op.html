@@ -38,7 +38,8 @@
                     <th>術前検査日</th>
                     <th>手術日</th>
                     <th>date_set</th>
-                    <th>患者連絡</th>
+                    <th>Phone</th>
+                    <th>email</th>
                     <th>Order Committed</th>
                     <th>Phone</th>
                     <th>Created At</th>
@@ -89,6 +90,7 @@
                         {% endif %}
                     </td>
                     <td>{{ op.phone }}</td>
+                    <td>{{ op.email }}</td>
                     <td>{{ op.created_at }}</td>
                     <td><a href="{{ url_for('edit_op', op_id=op.id) }}" >Edit</a></td>
                 </tr>
