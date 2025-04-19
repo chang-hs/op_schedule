@@ -105,6 +105,7 @@ def edit_op(op_id):
         op.patient_id = form.patient_id.data
         op.name = form.name.data
         op.phone = form.phone.data
+        op.email = form.email.data
         op.diagnosis = form.diagnosis.data
         op.urgency = form.urgency.data
         op.memo = form.memo.data
