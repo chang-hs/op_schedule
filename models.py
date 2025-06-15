@@ -27,6 +27,7 @@ class Op(Base):
     patient_notified: Mapped[Boolean] = mapped_column(Boolean, default=False)
     orders_committed: Mapped[Boolean] = mapped_column(Boolean, default=False)
     created_at: Mapped[DateTime] = mapped_column(DateTime, default=func.now())
+    active: Mapped[Boolean] = mapped_column(Boolean, default=True, nullable=True)
 
     def __repr__(self) -> str:
         return f"Op {self.patient_id} {self.name} {self.op_date} {self.preop_date}"

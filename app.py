@@ -14,6 +14,7 @@ from flask_login import (
     current_user,
 )
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import request
 
 
 app = Flask(__name__)
@@ -92,14 +93,27 @@ def register():
 @app.route("/list")
 @login_required
 def list_ops():
-    ops = Op.query.all()
+    ops = Op.query.filter(Op.active == True).all()
     return render_template("list_op.html", title="List of Ops", ops=ops)
+
+@app.route("/edit_list", methods=["GET", "POST"])
+@login_required
+def edit_list():
+    ops = Op.query.filter(Op.active == True).all()
+    if request.method == 'POST':
+        for i in request.form.getlist("ids"):
+            op = Op.query.filter_by(id=int(i)).first()
+            op.active = False
+        db_session.commit()
+        return redirect(url_for("list_ops"))
+    return render_template('edit_list.html', ops=ops)
+
 
 
 @app.route("/edit/<int:op_id>", methods=["GET", "POST"])
 @login_required
 def edit_op(op_id):
-    op = db_session.query(Op).filter_by(id=op_id).first()
+    op = Op.query.filter_by(id=op_id).first()
     form = EditOpForm(obj=op)
     if form.validate_on_submit():
         op.patient_id = form.patient_id.data
