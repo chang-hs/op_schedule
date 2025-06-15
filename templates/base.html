@@ -5,9 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}{% endblock %}</title>
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <div style="height: 50px"></div>
+    {% include 'partials/navbar.html' %}
     <div class="container-xxl">
       <h1>{% block mytitle %}{% endblock %}</h1>
       <p>{% block content %}{% endblock %}</p>
